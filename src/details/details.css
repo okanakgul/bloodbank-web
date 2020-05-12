@@ -1,0 +1,17 @@
+table {
+  font-family: Times, "Times New Roman", serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: center;
+  padding: 10px;
+  width: 18.5%;
+}
+
+thead {
+  text-align: center;
+  font-weight: bold;
+}
