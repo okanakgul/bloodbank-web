@@ -3,7 +3,7 @@ import "whatwg-fetch";
 class HttpService {
   getBloodReqs = () => {
     var promise = new Promise((resolve, reject) => {
-      fetch("http://35.158.97.30/api/bloodReq").then(response => {
+      fetch("http://52.28.26.31/blood/bloodReq").then(response => {
         resolve(response.json());
       });
     });
@@ -12,7 +12,7 @@ class HttpService {
 
   getBloodBank = () => {
     var promise = new Promise((resolve, reject) => {
-      fetch("http://35.158.97.30/api/bloodbank").then(response => {
+      fetch("http://52.28.26.31/blood/bloodbank").then(response => {
         resolve(response.json());
       });
     });

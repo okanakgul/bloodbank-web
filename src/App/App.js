@@ -19,14 +19,21 @@ class App extends Component {
 
     this.state = { bloodbank: [], bloodreq: [], details: [] };
     //Bind Functions
+
+    this.firstLoadBloodReqs = this.firstLoadBloodReqs.bind(this);
+    this.firstLoadBloodReqs();
+
+   /* this.loadBloodReqsToOrder = this.loadBloodReqsToOrder.bind(this);
+    this.loadBloodReqsToOrder();*/
+        
     this.loadBloodReqs = this.loadBloodReqs.bind(this);
     this.loadBloodReqs();
 
-    this.loadBloodReqsToOrder = this.loadBloodReqsToOrder.bind(this);
-    this.loadBloodReqsToOrder();
-
     this.loadBloodBank = this.loadBloodBank.bind(this);
     this.loadBloodBank();
+
+    this.firstLoadBloodBank = this.firstLoadBloodBank.bind(this);
+    this.firstLoadBloodBank();
 
     var self = this;
 
@@ -52,6 +59,29 @@ class App extends Component {
     );
   };
 
+  firstLoadBloodReqs = () => {
+    var self = this;
+      http.getBloodReqs().then(
+        bloodreqs => {
+          self.setState({ bloodreq: bloodreqs });
+          var orderedList = self.state.bloodreq.sort();
+          orderedList = orderedList.reverse();
+          self.setState({ bloodreq: orderedList });
+        },
+        err => {}
+      );
+  };
+
+  firstLoadBloodBank = () => {
+    var self = this;
+      http.getBloodBank().then(
+        data => {
+          self.setState({ bloodbank: data });
+        },
+        err => {}
+      );
+  };
+
   loadBloodReqs = () => {
     var self = this;
     setInterval(function() {
@@ -64,7 +94,7 @@ class App extends Component {
         },
         err => {}
       );
-    }, 1000);
+    }, 15000);
   };
 
   loadBloodBank = () => {
@@ -76,7 +106,7 @@ class App extends Component {
         },
         err => {}
       );
-    }, 1000);
+    }, 15000);
   };
 
   bloodbankList0 = () => {
@@ -145,7 +175,6 @@ class App extends Component {
           units={bloodreq.units}
           requester_name={bloodreq.requester_name}
           req_status={bloodreq.req_status}
-          needUpdate={bloodreq.isUpdated}
         />
       </div>
     ));
@@ -194,7 +223,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div>
+        <div >
           <Details />
           {this.bloodreqList()}
         </div>
